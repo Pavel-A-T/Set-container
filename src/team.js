@@ -1,19 +1,20 @@
-import Set from './set';
-
 export default class Team {
   constructor() {
     this.members = new Set();
   }
 
   add(personage) {
+    if (this.members.has(personage)) throw new Error(`${personage} is not type of Character or already available in this Set`);
     this.members.add(personage);
   }
 
-  addAll(...personages) {
-    this.members.addAll(...personages);
+  addAll(personages) {
+    personages.forEach((item) => {
+      if (!this.members.has(item)) this.members.add(item);
+    });
   }
 
   toArray() {
-    return this.members.toArray();
+    return [...this.members];
   }
 }

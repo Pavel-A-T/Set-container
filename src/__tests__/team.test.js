@@ -15,10 +15,11 @@ test(('class Set metod add'), () => {
   const team = new Team();
   team.add(zomb);
   team.add(undead);
-  expect(team.members.personages).toEqual([zomb, undead]);
-  const personage = 'unknown personage';
-  expect(() => team.add(personage)).toThrow(`${personage} isnt type of Character or already available in this Set`);
-  expect(() => team.add(undead)).toThrow(`${undead} isnt type of Character or already available in this Set`);
+  const arr = [zomb, undead];
+  const expected = new Set(arr);
+  expect(team.members).toEqual(expected);
+  expect(() => team.add(zomb)).toThrowError(`${zomb} is not type of Character or already available in this Set`);
+  expect(() => team.add(undead)).toThrowError(`${undead} is not type of Character or already available in this Set`);
 });
 
 test(('class Set metod addAll'), () => {
@@ -30,8 +31,11 @@ test(('class Set metod addAll'), () => {
   const daemon = new Daemon(name);
   const bowman = new Bowman(name);
   const team = new Team();
-  team.addAll(undead, undead, undead, zombie, swordsman, zombie, magician, zombie, magician, daemon, bowman, daemon, 'Unknown');
-  expect(team.members.personages).toEqual([undead, zombie, swordsman, magician, daemon, bowman]);
+  const arr = [undead, zombie, swordsman, magician, daemon, bowman];
+  const expected = new Set(arr);
+  team.addAll([undead, undead, undead, zombie, swordsman, zombie, magician, zombie,
+    magician, daemon, bowman, daemon]);
+  expect(team.members).toEqual(expected);
 });
 
 test(('class Set metod toArray()'), () => {
@@ -41,6 +45,6 @@ test(('class Set metod toArray()'), () => {
   const swordsman = new Swordsman(name);
   const magician = new Magician(name);
   const team = new Team();
-  team.addAll(undead, zombie, swordsman, magician);
+  team.addAll([undead, zombie, swordsman, magician]);
   expect(team.toArray()).toEqual([undead, zombie, swordsman, magician]);
 });
