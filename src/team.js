@@ -10,7 +10,7 @@ export default class Team {
 
   addAll(personages) {
     personages.forEach((item) => {
-      if (!this.members.has(item)) this.members.add(item);
+      this.members.add(item);
     });
   }
 
